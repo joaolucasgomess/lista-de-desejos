@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Pressable } from "react-native"; 
+import { View, Text, StyleSheet, Pressable, Image, ScrollView } from "react-native"; 
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
@@ -46,30 +46,34 @@ export const WishlistScreen = () => {
     }
 
     return(
-        <View>
+        <ScrollView>
             {products.map((product) => {
                 total += Number(product.preco)
 
                 return (
                     <View style={styles.mainContainer}>
                         <View>
-                            <Text>{product.urlImagem}</Text>
-                            <Text>{product.nome}</Text>
+                            <Image
+                                source={{
+                                    uri: product.urlImagem
+                                }}
+                                style={{ height: 400 }}
+                            />
+                            <Text style={{ fontWeight: '600', fontSize: 25, color: '#4E4E4E' }}>{product.nome}</Text>
                             <View>
-                                <Text>Preço: {product.preco}</Text>
+                                <Text style={{  color: '#4E4E4E', fontWeight: '600', fontSize: 20, marginVertical: 10 }}>Preço: {product.preco}</Text>
                             </View>
                         </View>
-                        <Pressable style={{ marginTop: 10 }} onPress={() => {
-                                deleteWishlist(product.produtoId)
-                            }}>
-                            <Text>Remover da lista de desejos</Text>
+                        <Pressable style={styles.button} onPress={() => (postWishlist(product.produtoId))}>
+                            <Text style={{  color : "white" }}>Remover da lista de desejos</Text>
                         </Pressable>
                     </View>
             )})}
-            <View>
-                <Text>Total da lista de desejos: {total}</Text>
+            <View style={styles.total}>
+                <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Total da lista de desejos:</Text>
+                <Text style={{ fontWeight: 'bold', fontSize: 20 }}>{total}</Text>
             </View>
-        </View>
+        </ScrollView>
     )
 }
 
@@ -83,5 +87,23 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 6,
         borderBottomLeftRadius: 6,
         borderBottomRightRadius: 6
+    },
+    button: {
+        marginTop: 10, 
+        backgroundColor: 'red', 
+        width: 200, 
+        height: 30, 
+        justifyContent: 'center', 
+        alignItems: 'center',
+        borderTopLeftRadius: 6,
+        borderTopRightRadius: 6,
+        borderBottomLeftRadius: 6,
+        borderBottomRightRadius: 6
+    },
+    total: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginHorizontal: 10,
+        marginVertical: 20
     }
 })

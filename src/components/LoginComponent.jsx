@@ -15,6 +15,7 @@ export const LoginComponent = () => {
         if(!result){
           throw new Error('Não foi possivel logar')
         }
+        console.log(email)
         setNome(result.data.nome)
         await AsyncStorage.setItem('email', email)
         await AsyncStorage.setItem('nome', nome)

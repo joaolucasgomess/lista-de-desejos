@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Pressable } from "react-native"; 
+import { View, Text, StyleSheet, Pressable, Image, ScrollView } from "react-native"; 
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
@@ -46,22 +46,27 @@ export const ProductsScreen = ({ route }) => {
     }
 
     return(
-        <View>
+        <ScrollView>
             {products.map((product) => (
                 <View style={styles.mainContainer}>
                     <View>
-                        <Text>{product.urlImagem}</Text>
-                        <Text>{product.nome}</Text>
+                        <Image
+                            source={{
+                                uri: product.urlImagem
+                            }}
+                            style={{ height: 400 }}
+                        />
+                        <Text style={{ fontWeight: '600', fontSize: 25, color: '#4E4E4E' }}>{product.nome}</Text>
                         <View>
-                            <Text>Preço: {product.preco}</Text>
+                            <Text style={{  color: '#4E4E4E', fontWeight: '600', fontSize: 20, marginVertical: 10 }}>Preço: {product.preco}</Text>
                         </View>
                     </View>
-                    <Pressable style={{ marginTop: 10 }} onPress={() => (postWishlist(product.produtoId))}>
-                        <Text>Adicionar a lista de desejos</Text>
+                    <Pressable style={styles.button} onPress={() => (postWishlist(product.produtoId))}>
+                        <Text style={{  color : "white" }}>Adicionar a lista de desejos</Text>
                     </Pressable>
                 </View>
             ))}
-        </View>
+        </ScrollView>
     )
 }
 
@@ -71,6 +76,18 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         padding: 15,
         margin: 14,
+        borderTopLeftRadius: 6,
+        borderTopRightRadius: 6,
+        borderBottomLeftRadius: 6,
+        borderBottomRightRadius: 6
+    },
+    button: {
+        marginTop: 10, 
+        backgroundColor: '#201e80', 
+        width: 200, 
+        height: 30, 
+        justifyContent: 'center', 
+        alignItems: 'center',
         borderTopLeftRadius: 6,
         borderTopRightRadius: 6,
         borderBottomLeftRadius: 6,

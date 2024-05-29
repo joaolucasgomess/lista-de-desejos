@@ -32,8 +32,10 @@ export const ListCategoryScreen = () => {
     ))
 
     return(
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-            {printCategories}
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center", paddingTop: 60 }}>      
+            <ScrollView>
+                    {printCategories}   
+            </ScrollView>
         </View>
     )
 }

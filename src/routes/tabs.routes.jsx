@@ -23,6 +23,7 @@ export default function TabRoutes() {
                     tabBarLabel: "Lista de Desejos",
                     headerShown: false
                 }}
+    
             />                
             <Tabs.Screen
                 name="ProfileScreen"
